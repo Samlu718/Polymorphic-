@@ -1,0 +1,88 @@
+body {
+    background-color: #e0c9ba;
+}
+
+h1 {
+    text-align: center;
+    text-decoration: #ee4266 underline wavy;
+    letter-spacing: 15px;
+}
+
+a {
+    text-decoration: none;
+    font-weight: 600;
+}
+
+a:hover {
+    color: yellow;
+}
+
+a:active {
+    color: #ff0054;
+}
+
+p {
+    line-height: 2;
+}
+
+table,
+td {
+    border: 1px solid gray;
+}
+
+thead {
+    background-color: black;
+    color: white;
+}
+
+#select {
+    background-color: #8ecae6;
+}
+
+#nice {
+    text-decoration: line-through;
+}
+
+.red {
+    background-color: #ff7900;
+}
+
+
+fieldset>legend {
+    text-decoration: red underline;
+    font-size: x-large;
+    font-weight: 700;
+}
+
+input[type="password"] {
+    color: orange;
+}
+
+input[type="radio"]:checked {
+    box-shadow: 0 0 0 3px #ff7900;
+}
+
+input:checked+label {
+    color: red;
+}
+
+button:hover {
+    background-color: black;
+    color: white;
+}
+
+button:active {
+    color: red;
+}
+
+div:nth-of-type(3n) {
+    background-color: #dab49d;
+}
+
+div ::selection {
+    background-color: orange;
+}
+
+div p::first-letter {
+    font-size: 25px;
+}
