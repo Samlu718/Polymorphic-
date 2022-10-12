@@ -5,6 +5,8 @@ use App\Http\Controllers\PostController;
 use App\Models\Post;
 use App\Models\User;
 use App\Models\Country;
+use App\Models\Photo;
+use App\Models\Tag;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -15,6 +17,7 @@ use App\Models\Country;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
 Route::get('/', function () {
     return view('welcome');
 });
@@ -144,30 +147,30 @@ Route::get('/', function () {
 // });
 
 //one to one
-Route::get('/user/{id}/post', function($id){
+Route::get('/user/{id}/post', function ($id) {
     return User::find($id)->post;
 });
 
 
 
-Route::get('/post/{id}/user', function($id){
+Route::get('/post/{id}/user', function ($id) {
     return Post::find($id)->user->name;
 });
 
 
 //one to many
-Route::get('/posts', function(){
+Route::get('/posts', function () {
     $user = User::find(1);
 
-    foreach($user->posts as $post){
-        echo $post->title."<br>";
+    foreach ($user->posts as $post) {
+        echo $post->title . "<br>";
     }
 });
 
 
 
-Route::get('/user/{id}/role', function($id){
-    $user = User::find($id)->roles()->orderBy('id','desc')->get();
+Route::get('/user/{id}/role', function ($id) {
+    $user = User::find($id)->roles()->orderBy('id', 'desc')->get();
     return $user;
 
 
@@ -178,18 +181,50 @@ Route::get('/user/{id}/role', function($id){
 
 
 
-Route::get('/user/pivot', function(){
+Route::get('/user/pivot', function () {
     $user = User::find(1);
-    foreach($user->roles as $role){
+    foreach ($user->roles as $role) {
         echo $role->pivot->created_at;
     }
 });
 
 
 
-Route::get('/user/country', function(){
+Route::get('/user/country', function () {
     $country = Country::find(3);
-    foreach($country->posts as $post) {
+    foreach ($country->posts as $post) {
+        return $post->title;
+    }
+});
+
+
+//Polymorphic Relation
+Route::get('/post/{id}/photos', function ($id) {
+    $post = Post::find($id);
+
+    foreach ($post->photos as $photo) {
+        echo $photo->path, "<br>";
+    }
+});
+
+Route::get('/photo/{id}/post', function ($id) {
+    $photo = Photo::findOrFail($id);
+    return $photo->imageable;
+});
+
+
+
+//Polymorphic many to many
+Route::get('/post/tag/{id}', function ($id) {
+    $post = Post::find($id);
+    foreach ($post->tags as $tag) {
+        return $tag->name;
+    }
+});
+
+Route::get('/tag/post', function () {
+    $tag = Tag::find(2);
+    foreach ($tag->posts as $post) {
         return $post->title;
     }
 });
